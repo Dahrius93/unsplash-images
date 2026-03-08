@@ -1,163 +1,258 @@
-## Figma URL
+# 🖼️ Unsplash Images
 
-[Unsplash Images](https://www.figma.com/file/O2MaAAlr4nznh7m53azatL/Unsplash-images?node-id=0%3A1&t=cYDOCgqOs9IX2If0-1)
+Un'applicazione React moderna per cercare e visualizzare immagini dalla libreria Unsplash.
 
-## Steps
+## 📋 Descrizione
 
-#### Setup
+**Unsplash Images** è un'applicazione web intuitiva che permette di cercare e visualizzare immagini di alta qualità direttamente dall'API di Unsplash. L'app offre un'interfaccia pulita con supporto per il tema chiaro e scuro.
 
-- npm install
-- npm run dev
+### ✨ Caratteristiche Principali
 
-#### Initial Structure and Global Context
+- **🔍 Ricerca Immagini**: Ricerca in tempo reale di immagini tramite l'API Unsplash
+- **🎨 Tema Scuro/Chiaro**: Toggle per passare tra tema chiaro e scuro
+- **⚡ Caricamento Ottimizzato**: Caching intelligente con React Query
+- **📱 Responsive Design**: Perfetto su dispositivi desktop e mobile
+- **🚀 Performante**: Costruito con Vite per velocità massima
 
-Create three components - ThemeToggle, SearchForm and Gallery. Render all of them in App.jsx, and setup global context.
+## 🛠️ Tecnologie Utilizzate
 
-#### Dark Theme - Initial Setup
+- **React 18.2** - Libreria UI
+- **Vite** - Build tool e dev server
+- **React Query (TanStack)** - Gestione del caching e dello stato asincrono
+- **Axios** - Client HTTP
+- **React Icons** - Libreria di icone
+- **CSS** - Styling (responsive)
 
-In the context of creating a state value called 'isDarkTheme' (boolean) and a helper function called 'toggleDarkTheme', set 'isDarkTheme' to the opposite value when 'toggleDarkTheme' is invoked. Pass 'isDarkTheme' and 'toggleDarkTheme' down to 'ThemeToggle'. In 'ThemeToggle', import two icons from the React Icons library (moon and sun) and create a button. When the button is clicked, invoke 'toggleDarkTheme', and display the appropriate icon based on the value of 'isDarkTheme' inside of the button.
+## 📦 Installazione
 
-#### Dark Theme Class
+### Prerequisiti
 
-In the toggleDarkTheme add logic to add and remove .dark-theme class to body element based on isDarkTheme value.
+- Node.js (versione 14 o superiore)
+- npm o yarn
 
-#### Dark Theme - CSS
+### Setup del Progetto
 
-Create CSS variables for the background color and text color for both dark mode and normal mode, as well as a CSS variable for the dark mode transition.
+1. **Clona il repository**
+   ```bash
+   git clone <repository-url>
+   cd unsplash-images
+   ```
+
+2. **Installa le dipendenze**
+   ```bash
+   npm install
+   ```
+
+3. **Configura le variabili d'ambiente**
+   
+   Crea un file `.env` nella root del progetto:
+   ```
+   VITE_API_KEY=your_unsplash_api_key_here
+   ```
+   
+   > 📝 Ottieni una chiave API gratuita [qui](https://unsplash.com/developers)
+
+4. **Avvia il server di sviluppo**
+   ```bash
+   npm run dev
+   ```
+   
+   L'applicazione si aprirà automaticamente a `http://localhost:5173`
+
+## 🚀 Utilizzo
+
+### Ricerca Immagini
+
+1. Inserisci il termine di ricerca nell'input (es. "cat", "mountain", "nature")
+2. Clicca il pulsante **Search** o premi Enter
+3. Le immagini verranno caricate e visualizzate nella galleria
+
+### Toggle Tema
+
+Clicca l'icona nella barra superiore per passare tra tema chiaro e scuro. La preferenza viene salvata automaticamente.
+
+### Gestione Errori
+
+- **Loading**: Viene visualizzato "Loading..." durante il caricamento
+- **Errori**: In caso di errore API viene mostrato un messaggio di errore
+
+## 📁 Struttura del Progetto
+
+```
+unsplash-images/
+├── src/
+│   ├── App.jsx              # Componente principale
+│   ├── context.jsx          # Context globale (search term, tema)
+│   ├── SearchForm.jsx       # Form di ricerca
+│   ├── Gallery.jsx          # Galleria di immagini
+│   ├── ThemeToggle.jsx      # Toggle tema scuro/chiaro
+│   ├── main.jsx             # Entry point React
+│   ├── index.css            # Stili globali
+│   └── assets/              # Risorse statiche
+├── public/                  # File statici
+├── .env                     # Configurazione (non committare)
+├── vite.config.js           # Configurazione Vite
+├── package.json             # Dipendenze e script
+└── README.md               # Questo file
+```
+
+### Componenti
+
+#### `App.jsx`
+Componente radice che orchestra i principali componenti dell'app.
+
+#### `SearchForm.jsx`
+Form di ricerca che cattura l'input dell'utente e aggiorna il contesto globale.
+
+#### `Gallery.jsx`
+Componente che esegue la query all'API Unsplash e visualizza le immagini. Gestisce loading e errori.
+
+#### `ThemeToggle.jsx`
+Pulsante per alternare tra tema chiaro e scuro.
+
+#### `context.jsx`
+Context React per lo stato globale:
+- `searchTerm`: Termine di ricerca corrente
+- `setSearchTerm`: Funzione per aggiornare il termine
+- `theme`: Tema corrente (light/dark)
+- `toggleTheme`: Funzione per cambiare tema
+
+## 📜 Script Disponibili
+
+```bash
+# Avvia il server di sviluppo
+npm run dev
+
+# Build per la produzione
+npm run build
+
+# Preview della build di produzione
+npm run preview
+```
+
+## 🌐 API Reference
+
+L'app utilizza l'**Unsplash API** (`https://api.unsplash.com/search/photos`)
+
+### Parametri
+- `client_id`: Chiave API Unsplash (da .env)
+- `query`: Termine di ricerca
+
+### Risposta
+Restituisce array di oggetti immagine con:
+- `id`: ID immagine
+- `urls`: Oggetto con vari formati URL
+- `alt_description`: Descrizione alternativa
+
+[Documentazione Unsplash API](https://unsplash.com/documentation)
+
+## 🎨 Personalizzazione
+
+### Cambiare i colori del tema
+
+Modifica i CSS custom in `index.css`:
 
 ```css
 :root {
-  /* dark mode setup */
-  --dark-mode-bg-color: #333;
-  --dark-mode-text-color: #f0f0f0;
-  --backgroundColor: var(--grey-50);
-  --textColor: var(--grey-900);
-
-  --darkModeTransition: color 0.3s ease-in-out, background-color 0.3s
-      ease-in-out;
+  --background-color: #ffffff;
+  --text-color: #000000;
+  /* ... altri colori */
 }
 
-.dark-theme {
-  --textColor: var(--dark-mode-text-color);
-  --backgroundColor: var(--dark-mode-bg-color);
-}
-
-body {
-  transition: var(--darkModeTransition);
-  background: var(--backgroundColor);
-  color: var(--textColor);
+[data-theme="dark"] {
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
 }
 ```
 
-#### User Prefers Dark Mode
+### Aggiungere filtri di ricerca
 
-```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    --textColor: var(--dark-mode-text-color);
-    --backgroundColor: var(--dark-mode-bg-color);
-  }
-}
+Estendi `Gallery.jsx` con parametri aggiuntivi:
+
+```javascript
+const response = useQuery({
+  queryFn: async () => {
+    const result = await axios.get(
+      `${URL}&query=${searchTerm}&per_page=20&order_by=relevant`
+    );
+    return result.data;
+  },
+});
 ```
 
-#### SearchForm Structure
+## ⚠️ Limitazioni API
 
-Create a form with an input and a submit button. The input should have the following attributes: type='text', name='search', placeholder='cat', and className='form-input search-input'. When the user submits the form, access (for now log)the input value.
+La versione gratuita di Unsplash API ha i seguenti limiti:
+- 50 richieste per ora (non autenticato)
+- 5000 richieste al giorno
 
-#### Unsplash Info
+## 🐛 Troubleshooting
 
-Unsplash is a website that provides a large collection of high-quality stock photos that are free to use. The Unsplash API is a service that allows developers to access and use Unsplash's collection of photos and related data in their own applications. The API allows developers to search, download, and use the photos in a variety of ways, such as creating photo galleries or integrating them into social media applications. The Unsplash API is widely used by developers to enhance the visual content of their applications or websites.
+### Immagini non si caricano
+- Verifica che `VITE_API_KEY` è correttamente impostato nel file `.env`
+- Controlla che la chiave API è valida
+- Verifica la connessione a internet
 
-[Unsplash Website](https://unsplash.com/)
+### Errore "Too many requests"
+- Aspetta un'ora prima di fare nuove ricerche
+- Considera di autenticarti con Unsplash per limiti maggiori
 
-#### Sign Up for an Unsplash Account
-
-[Unsplash API](https://unsplash.com/developers)
-
-In order to use the Unsplash API to fetch images for your application, you will need to sign up for an account with Unsplash. This will allow you to obtain an API key that you can use to authenticate your requests.
-
-#### Find the API Key and Correct URL for Searching Images
-
-- register an app
-- authorization (hint : public authentication)
-- search functionality (hint : search photos)
-
-After signing up for an Unsplash account, you will need to locate your API key and the correct URL to use when searching for images using the Unsplash API. This information can be found in the API documentation provided by Unsplash.
-
-#### Test the URL Using Thunder Client VS Code Extension
-
-Before implementing the API in your application, it is a good practice to test the URL using a tool like Thunder Client VS Code Extension. This will allow you to verify that the URL is correct and that you are able to successfully retrieve images using the API.
-
-#### Install and Setup React Query in Gallery Component
-
-React Query is a library that can be used to handle API requests in React applications. To fetch images from the Unsplash API, you will need to install and set up React Query in your Gallery component.
-
-#### Install and Setup React Query Dev Tools
-
-React Query dev tools provide a way to inspect and debug React Query data and caching behavior. To use this tool, you will need to install and set up the React Query dev tools in your application.
-
-#### Create a searchValue State Value in Context.jsx
-
-In order to implement search functionality in your application, you will need to create a state value to store the user's search input. This can be done in a context file, such as context.jsx.
-
-#### Fix the useQuery
-
-After setting up React Query and creating the searchValue state value, you will need to modify the useQuery function to fetch images based on the user's search input.
-
-#### Check Whether User Prefers Dark Mode with JavaScript
-
-To provide a better user experience, you can check whether the user prefers dark mode using JavaScript. This can be done by accessing the user's system preferences and setting the theme of your application accordingly.
-
-#### Setup Local Storage to Store isDarkTheme State Value
-
-To persist the user's preferred theme across sessions, you can store the isDarkTheme state value in local storage. This will allow the theme to be preserved even if the user closes and reopens the application.
-
-#### Setup ENV Variables in VITE
-
-Environment variables can be used to store sensitive information, such as your Unsplash API key. In order to use environment variables in your application, you will need to set them up in VITE, a build tool for modern web development.
-
-#### Deploy the Application to Netlify and Setup ENV Variables
-
-Once your application is complete, you can deploy it to a hosting platform such as Netlify. When deploying to Netlify, you will need to set up your environment variables to ensure that your application can access your Unsplash API key.
-
-#### Add CSS
-
-Finally, you can add CSS to your application to style the components and provide a polished user interface.
-
-## Additional Info
-
-#### Dark Theme Class - Code
-
-```js
-const body = document.querySelector('body');
-body.classList.toggle('dark-theme', newDarkTheme);
-
-// alternative setup
-document.body.classList.toggle('dark-theme', newDarkTheme);
+### Build fallisce
+```bash
+# Pulisci la cache e reinstalla
+rm -rf node_modules package-lock.json
+npm install
+npm run build
 ```
 
-const body = document.querySelector('body'); - This line selects the body element of the current document using the document.querySelector() method, which returns the first element that matches the specified selector. In this case, it is selecting the body element.
+## 📝 Note di Sviluppo
 
-body.classList.toggle('dark-theme', isDarkTheme); - This line toggles the dark-theme class of the body element. The classList property is a read-only list that contains the classes of an element. The toggle() method adds a class to the element if it does not have it, or removes it if it does. In this case, it adds the dark-theme class if isDarkTheme is true, and removes it if isDarkTheme is false.
+- React Query gestisce automaticamente il caching - le stesse ricerche non faranno nuove richieste API
+- Il tema viene mantenuto in localStorage per persistenza tra sessioni
+- Vite utilizza ES modules per caricamento più veloce in sviluppo
 
-#### Elements Property
+## 🚀 Deploy
 
-The elements property of the event.target object in the handleSubmit function refers to an HTMLCollection containing all the form controls (i.e., input, select, textarea, button, etc.) inside the <form> element.
+### Vercel (Consigliato)
 
-This is useful because you can use the elements collection to get the values of the form controls when the form is submitted. For example, e.target.elements.search.value would give you the value of the search input field when the form is submitted.
+```bash
+npm install -g vercel
+vercel
+```
 
-#### React Query Info
+Aggiungi le variabili d'ambiente in Vercel Dashboard:
+- `VITE_API_KEY`: Tua chiave API Unsplash
 
-By default, useQuery caches the results of the API request for a certain amount of time. This can improve the performance of your application by reducing the number of requests made to the API.
+### Netlify
 
-When you specify the queryKey array in the options object for useQuery, you are telling the hook how to identify the data being fetched. If the queryKey array doesn't change between renders of the component, then useQuery will return the cached data instead of re-fetching it from the API.
+1. Connetti il repository a Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Aggiungi `VITE_API_KEY` nelle variabili d'ambiente
 
-The queryKey array is used by useQuery to identify which data the query is fetching. When the queryKey array changes, useQuery assumes that the data being fetched has changed, and it re-runs the queryFn to fetch the updated data.
+### Build locale
 
-In this case, searchTerm is the user's search input, and it is used to modify the API request URL. By including searchTerm in the queryKey array, you are telling useQuery to re-run the queryFn whenever the user's search input changes, in order to fetch updated data based on the new search term.
+```bash
+npm run build
+# La cartella 'dist' contiene i file pronti per il deploy
+```
 
-Therefore, without including searchTerm in the queryKey array, the useQuery hook would not re-fetch data when the user performs a new search.
+## 📚 Risorse Utili
 
-#### Vite ENV Vars
+- [React Documentation](https://react.dev)
+- [Vite Guide](https://vitejs.dev)
+- [React Query Docs](https://tanstack.com/query/latest)
+- [Unsplash API](https://unsplash.com/documentation)
+- [Axios Documentation](https://axios-http.com)
 
-- .env : must be included in .gitignore
+## 📄 Licenza
+
+Questo progetto è disponibile sotto licenza MIT.
+
+## 👨‍💻 Autore
+
+Creato durante il corso Udemy di React.
+
+---
+
+**Buon divertimento con Unsplash Images!** ✨
