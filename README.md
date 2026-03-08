@@ -2,6 +2,8 @@
 
 Un'applicazione React moderna per cercare e visualizzare immagini dalla libreria Unsplash.
 
+[Link deploy su Netlify :)](https://unsplash-images-application.netlify.app/)
+
 ## 📋 Descrizione
 
 **Unsplash Images** è un'applicazione web intuitiva che permette di cercare e visualizzare immagini di alta qualità direttamente dall'API di Unsplash. L'app offre un'interfaccia pulita con supporto per il tema chiaro e scuro.
@@ -33,30 +35,34 @@ Un'applicazione React moderna per cercare e visualizzare immagini dalla libreria
 ### Setup del Progetto
 
 1. **Clona il repository**
+
    ```bash
    git clone <repository-url>
    cd unsplash-images
    ```
 
 2. **Installa le dipendenze**
+
    ```bash
    npm install
    ```
 
 3. **Configura le variabili d'ambiente**
-   
+
    Crea un file `.env` nella root del progetto:
+
    ```
    VITE_API_KEY=your_unsplash_api_key_here
    ```
-   
+
    > 📝 Ottieni una chiave API gratuita [qui](https://unsplash.com/developers)
 
 4. **Avvia il server di sviluppo**
+
    ```bash
    npm run dev
    ```
-   
+
    L'applicazione si aprirà automaticamente a `http://localhost:5173`
 
 ## 🚀 Utilizzo
@@ -99,19 +105,25 @@ unsplash-images/
 ### Componenti
 
 #### `App.jsx`
+
 Componente radice che orchestra i principali componenti dell'app.
 
 #### `SearchForm.jsx`
+
 Form di ricerca che cattura l'input dell'utente e aggiorna il contesto globale.
 
 #### `Gallery.jsx`
+
 Componente che esegue la query all'API Unsplash e visualizza le immagini. Gestisce loading e errori.
 
 #### `ThemeToggle.jsx`
+
 Pulsante per alternare tra tema chiaro e scuro.
 
 #### `context.jsx`
+
 Context React per lo stato globale:
+
 - `searchTerm`: Termine di ricerca corrente
 - `setSearchTerm`: Funzione per aggiornare il termine
 - `theme`: Tema corrente (light/dark)
@@ -135,11 +147,14 @@ npm run preview
 L'app utilizza l'**Unsplash API** (`https://api.unsplash.com/search/photos`)
 
 ### Parametri
+
 - `client_id`: Chiave API Unsplash (da .env)
 - `query`: Termine di ricerca
 
 ### Risposta
+
 Restituisce array di oggetti immagine con:
+
 - `id`: ID immagine
 - `urls`: Oggetto con vari formati URL
 - `alt_description`: Descrizione alternativa
@@ -173,7 +188,7 @@ Estendi `Gallery.jsx` con parametri aggiuntivi:
 const response = useQuery({
   queryFn: async () => {
     const result = await axios.get(
-      `${URL}&query=${searchTerm}&per_page=20&order_by=relevant`
+      `${URL}&query=${searchTerm}&per_page=20&order_by=relevant`,
     );
     return result.data;
   },
@@ -183,21 +198,25 @@ const response = useQuery({
 ## ⚠️ Limitazioni API
 
 La versione gratuita di Unsplash API ha i seguenti limiti:
+
 - 50 richieste per ora (non autenticato)
 - 5000 richieste al giorno
 
 ## 🐛 Troubleshooting
 
 ### Immagini non si caricano
+
 - Verifica che `VITE_API_KEY` è correttamente impostato nel file `.env`
 - Controlla che la chiave API è valida
 - Verifica la connessione a internet
 
 ### Errore "Too many requests"
+
 - Aspetta un'ora prima di fare nuove ricerche
 - Considera di autenticarti con Unsplash per limiti maggiori
 
 ### Build fallisce
+
 ```bash
 # Pulisci la cache e reinstalla
 rm -rf node_modules package-lock.json
@@ -221,6 +240,7 @@ vercel
 ```
 
 Aggiungi le variabili d'ambiente in Vercel Dashboard:
+
 - `VITE_API_KEY`: Tua chiave API Unsplash
 
 ### Netlify
